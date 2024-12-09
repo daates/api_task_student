@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: P@ssw0RD
+      POSTGRES_DB: api_task_development
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  app:
+    build:
+      context: .
+    volumes:
+      - .:/rails
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgres://postgres:P@ssw0RD@db:5432/api_task_development
+    depends_on:
+      - db
+    command: ["bin/rails", "server", "-b", "0.0.0.0"]
+
+volumes:
+  db_data:
