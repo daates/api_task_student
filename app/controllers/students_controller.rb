@@ -20,19 +20,7 @@ class StudentsController < ApplicationController
   end
 
 
-  def destroy
-    @student = Student.find(params[:id])
-
-    if @student
-      if @student.destroy
-        render json: { message: "Student successfully deleted" }, status: :ok
-      else
-        render json: { error: "Failed to delete student" }, status: :unprocessable_entity
-      end
-    else
-      render json: { error: "Student not found" }, status: :not_found
-    end
-  end
+ 
 
   private
 
